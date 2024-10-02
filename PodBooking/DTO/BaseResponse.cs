@@ -8,6 +8,7 @@
         private Pagination? _pagination;
         private string? _message;
         private string? _accessToken;
+        private string? _refreshToken;
 
         public Error? Error { get => _error; set => _error = value; }
         public List<T>? Items { get => _items; set => _items = value; }
@@ -15,5 +16,6 @@
         public Pagination? Pagination { get => _pagination; set => _pagination = value; }
         public string? Message { get => _message; set => _message = value; }
         public string? AccessToken { get => _accessToken; set => _accessToken = value; }
+        public string? RefreshToken { get => _refreshToken; set => _refreshToken = value; }
     }
 }

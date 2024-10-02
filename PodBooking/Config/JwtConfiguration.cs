@@ -5,6 +5,7 @@ using PodBooking.DTO;
 using PodBooking.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace PodBooking.Config
@@ -50,7 +51,7 @@ namespace PodBooking.Config
 
                 var token = jwtTokenHandler.CreateToken(tokenDescriptiion);
                 var accessToken = jwtTokenHandler.WriteToken(token);
-                //var refreshToken = GenerateRefreshToken();
+                var refreshToken = GenerateRefreshToken();
 
                 //luu vao database
                 /*var refreshTokenEntity = new RefreshToken
@@ -68,7 +69,7 @@ namespace PodBooking.Config
                 _context.refreshTokens.Add(refreshTokenEntity);
                 _context.SaveChanges();*/
 
-                return (accessToken, null);
+                return (accessToken, refreshToken);
             /*}
             catch (Exception ex)
             {
@@ -76,6 +77,17 @@ namespace PodBooking.Config
             }*/
 
 
+        }
+
+        private string GenerateRefreshToken()
+        {
+            var random = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(random);
+
+                return Convert.ToBase64String(random);
+            }
         }
     }
 }

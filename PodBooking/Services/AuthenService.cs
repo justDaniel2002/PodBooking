@@ -68,6 +68,7 @@ namespace PodBooking.Services
             response.Message = Enums.Successes.SignInsuccessfull;
             var Tokens = _jwtConfig.GenerateToken(response.Item);
             response.AccessToken = Tokens.accessToken;
+            response.RefreshToken = Tokens.refreshToken;
             return response;
         }
 
